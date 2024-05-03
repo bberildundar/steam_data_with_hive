@@ -1,0 +1,55 @@
+-- Cleaning data from unnecessary columns
+CREATE TABLE steam_selected_columns AS
+SELECT ResponseID, ResponseName, RecommendationCount, IsFree, ScreenshotCount,
+       PlatformWindows, PlatformLinux, PlatformMac, GenreIsNonGame,
+       GenreIsIndie, GenreIsAction, GenreIsAdventure, GenreIsCasual,
+       GenreIsStrategy, GenreIsRPG, GenreIsSimulation,
+       GenreIsEarlyAccess, GenreIsFreeToPlay, GenreIsSports,
+       GenreIsRacing, GenreIsMassivelyMultiplayer
+FROM steam_data;
+
+-- Cleaning data from NaN values
+CREATE TABLE steam_cleaned_data AS
+SELECT *
+FROM steam_selected_columns
+WHERE ResponseID IS NOT NULL
+  AND ResponseName IS NOT NULL
+  AND RecommendationCount IS NOT NULL
+  AND IsFree IS NOT NULL
+  AND ScreenshotCount IS NOT NULL
+  AND PlatformWindows IS NOT NULL
+  AND PlatformLinux IS NOT NULL
+  AND PlatformMac IS NOT NULL
+  AND GenreIsNonGame IS NOT NULL
+  AND GenreIsIndie IS NOT NULL
+  AND GenreIsAction IS NOT NULL
+  AND GenreIsAdventure IS NOT NULL
+  AND GenreIsCasual IS NOT NULL
+  AND GenreIsStrategy IS NOT NULL
+  AND GenreIsRPG IS NOT NULL
+  AND GenreIsSimulation IS NOT NULL
+  AND GenreIsEarlyAccess IS NOT NULL
+  AND GenreIsFreeToPlay IS NOT NULL
+  AND GenreIsSports IS NOT NULL
+  AND GenreIsRacing IS NOT NULL
+  AND GenreIsMassivelyMultiplayer IS NOT NULL;
+
+-- Removing duplicate rows 
+CREATE TABLE steam_data_table AS
+SELECT DISTINCT *
+FROM steam_cleaned_data;
+
+
+FROM steam_data_table
+SELECT responseid, responsename, recommendationcount
+ORDER BY recommendationcount DESC
+
+
+
+SELECT responseid, responsename, screenshotcount
+FROM steam_data_table
+WHERE isfree =  true AND screenshotcount > 10;
+
+
+
+
